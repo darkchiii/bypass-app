@@ -1,8 +1,9 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Annotated
-from . import cv_parser
+from cv_parser import extract_text_from_pdf
 import io
+from models import ParsedCV, Experience, Project, Education
 # import cv_parser
 
 app = FastAPI()
@@ -24,8 +25,7 @@ async def upload_cv(file: Annotated[UploadFile, File()]):
         content = await file.read()
 
         pdf_file = io.BytesIO(content)
-        pdf_file.read()
-        text = cv_parser.extract_text_from_pdf(pdf_file)
+        text = extract_text_from_pdf(pdf_file)
 
         return {"status": "success", "cv_data": text}
 
