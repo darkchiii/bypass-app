@@ -40,7 +40,7 @@ async def upload_cv(file: Annotated[UploadFile, File()]):
 async def save_base_cv(cv_data: ParsedCV):
 
     try:
-        storage.save_base_cv(cv_data)
+        storage.save_base_cv("daria", cv_data)
         return {
             "status": "success",
             "message": "Base CV saved successfully"
@@ -54,7 +54,7 @@ async def save_base_cv(cv_data: ParsedCV):
 @app.get("/api/get-base-cv")
 async def get_base_cv():
     try:
-        cv = storage.get_base_cv()
+        cv = storage.get_base_cv("daria")
 
         if cv is None:
             raise HTTPException(
