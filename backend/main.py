@@ -4,6 +4,7 @@ from typing import Annotated
 from cv_parser import extract_text_from_pdf
 import io
 from models import ParsedCV, Experience, Project, Education
+from storage import storage
 # import cv_parser
 
 app = FastAPI()
@@ -35,13 +36,42 @@ async def upload_cv(file: Annotated[UploadFile, File()]):
     finally:
         await file.seek(0)
 
-# @app.post("/api/save-base-cv/")
-# async def save_base_cv(cv_data: ParsedCV):
+@app.post("/api/save-base-cv")
+async def save_base_cv(cv_data: ParsedCV):
 
-#     return {"status": "saved"}
+    try:
+        storage.save_base_cv(cv_data)
+        return {
+            "status": "success",
+            "message": "Base CV saved successfully"
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to save CV: {str(e)}"
+        )
 
-# @app.get("/api/get-base-cv")
-# async def get_base_cv():
+@app.get("/api/get-base-cv")
+async def get_base_cv():
+    try:
+        cv = storage.get_base_cv()
+
+        if cv is None:
+            raise HTTPException(
+                status_code=404,
+                detail="No base CV found. Please upload and save CV first."
+            )
+        return cv
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail="No base CV found"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to load CV: {str(e)}"
+        )
 
 
 @app.get("/")
