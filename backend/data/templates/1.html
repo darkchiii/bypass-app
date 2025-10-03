@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV - Daria Wnuk</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            font-size: 10pt;
+            line-height: 1.4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28pt;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header .job-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #555;
+            margin: 0 0 10px 0;
+        }
+
+        .contact-info {
+            font-size: 9pt;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .contact-info a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        /* Section titles */
+        h2 {
+            font-size: 13pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+        }
+
+        /* Summary */
+        .summary {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Skills */
+        .skills-grid {
+            margin-bottom: 15px;
+        }
+
+        .skill-category {
+            margin-bottom: 6px;
+        }
+
+        .skill-category strong {
+            font-weight: bold;
+        }
+
+        /* Projects & Experience */
+        .item {
+            margin-bottom: 18px;
+            page-break-inside: avoid;
+        }
+
+        .item-header {
+            margin-bottom: 5px;
+        }
+
+        .item-title {
+            font-weight: bold;
+            font-size: 11pt;
+            margin: 0;
+        }
+
+        .item-subtitle {
+            font-style: italic;
+            color: #666;
+            font-size: 9pt;
+            margin: 2px 0;
+        }
+
+        .item-date {
+            color: #666;
+            font-size: 9pt;
+            margin: 2px 0;
+        }
+
+        .item ul {
+            margin: 8px 0 0 20px;
+            padding: 0;
+        }
+
+        .item li {
+            margin-bottom: 4px;
+            text-align: justify;
+        }
+
+        .repo-link {
+            font-size: 9pt;
+            margin-top: 5px;
+            color: #0066cc;
+        }
+
+        .repo-link a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        /* Education & Languages */
+        .education-item, .language-item {
+            margin-bottom: 10px;
+        }
+
+        .education-item strong {
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .gdpr-notice {
+            font-size: 7pt;
+            color: #888;
+            margin-top: 20px;
+            text-align: justify;
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>{{ name }}</h1>
+        <div class="job-title">{{ job_title }}</div>
+        <div class="contact-info">
+            📍 {{ location }} | 📱 {{ phone }} | 📨 <a href="mailto:{{ email }}">{{ email }}</a> |
+            🔗 <a href="{{ github_url }}">Github</a> <a href="{{ linkedin_url }}">LinkedIn</a>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <h2>Summary</h2>
+    <div class="summary">
+        {{ bio }}
+    </div>
+
+    <!-- Technical Skills -->
+    <h2>Technical Skills</h2>
+    <div class="skills-grid">
+        {% for category, skills_list in skills.items() %}
+        <div class="skill-category">
+            <strong>{{ category }}:</strong> {{ skills_list|join(', ') }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Featured Projects -->
+    <h2>Featured Projects</h2>
+    {% for project in projects %}
+    <div class="item">
+        <div class="item-header">
+            <div class="item-title">{{ project.title }}</div>
+            <div class="item-subtitle">{{ project.tools }}</div>
+        </div>
+        <ul>
+            {% for desc in project.description %}
+            <li>{{ desc }}</li>
+            {% endfor %}
+        </ul>
+        {% if project.link %}
+        <div class="repo-link">
+            Repo: <a href="{{ project.link }}">{{ project.link }}</a>
+            {% if project.webapp_link %}
+            | Web app: <a href="{{ project.webapp_link }}">{{ project.webapp_link }}</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <!-- Professional Experience -->
+    <h2>Professional Experience</h2>
+    {% for exp in experience %}
+    <div class="item">
+        <div class="item-header">
+            <div class="item-title">{{ exp.company }}, {{ exp.title }}</div>
+            <div class="item-date">{{ exp.date }}</div>
+        </div>
+        <ul>
+            {% for desc in exp.description %}
+            <li>{{ desc }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+
+    <!-- Languages -->
+    <h2>Languages</h2>
+    {% for lang in languages %}
+    <div class="language-item">{{ lang }}</div>
+    {% endfor %}
+
+    <!-- Education -->
+    <h2>Education</h2>
+    {% for edu in education %}
+    <div class="education-item">
+        <strong>{{ edu.degree }}</strong>, {{ edu.field }}<br>
+        {{ edu.school_name }}<br>
+        {{ edu.date }}
+    </div>
+    {% endfor %}
+
+    <!-- GDPR Notice -->
+    <div class="gdpr-notice">
+        I agree to the processing of personal data provided in this document for realising the recruitment process pursuant to the Personal Data Protection Act of 10 May 2018 (Journal of Laws 2018, item 1000) and in agreement with Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).
+    </div>
+</body>
+</html>

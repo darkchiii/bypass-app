@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV - Daria Wnuk</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            font-size: 10pt;
+            line-height: 1.4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28pt;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header .job-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #555;
+            margin: 0 0 10px 0;
+        }
+
+        .contact-info {
+            font-size: 9pt;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .contact-info a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        /* Section titles */
+        h2 {
+            font-size: 13pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+        }
+
+        /* Summary */
+        .summary {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Skills */
+        .skills-grid {
+            margin-bottom: 15px;
+        }
+
+        .skill-category {
+            margin-bottom: 6px;
+        }
+
+        .skill-category strong {
+            font-weight: bold;
+        }
+
+        /* Projects & Experience */
+        .item {
+            margin-bottom: 18px;
+            page-break-inside: avoid;
+        }
+
+        .item-header {
+            margin-bottom: 5px;
+        }
+
+        .item-title {
+            font-weight: bold;
+            font-size: 11pt;
+            margin: 0;
+        }
+
+        .item-subtitle {
+            font-style: italic;
+            color: #666;
+            font-size: 9pt;
+            margin: 2px 0;
+        }
+
+        .item-date {
+            color: #666;
+            font-size: 9pt;
+            margin: 2px 0;
+        }
+
+        .item ul {
+            margin: 8px 0 0 20px;
+            padding: 0;
+        }
+
+        .item li {
+            margin-bottom: 4px;
+            text-align: justify;
+        }
+
+        .repo-link {
+            font-size: 9pt;
+            margin-top: 5px;
+            color: #0066cc;
+        }
+
+        .repo-link a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        /* Education & Languages */
+        .education-item, .language-item {
+            margin-bottom: 10px;
+        }
+
+        .education-item strong {
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .gdpr-notice {
+            font-size: 7pt;
+            color: #888;
+            margin-top: 20px;
+            text-align: justify;
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Lola Loki</h1>
+        <div class="job-title">Python Developer</div>
+        <div class="contact-info">
+            📍 Warsaw | 📱 678 432 280 | 📨 <a href="mailto:lola@lola.com">lola@lola.com</a> |
+            🔗 <a href="">Github</a> <a href="">LinkedIn</a>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <h2>Summary</h2>
+    <div class="summary">
+        Experienced and excellent Lola Loki
+    </div>
+
+    <!-- Technical Skills -->
+    <h2>Technical Skills</h2>
+    <div class="skills-grid">
+        
+        <div class="skill-category">
+            <strong>Languages:</strong> Python
+        </div>
+        
+        <div class="skill-category">
+            <strong>Frameworks:</strong> Django, FastAPI
+        </div>
+        
+    </div>
+
+    <!-- Featured Projects -->
+    <h2>Featured Projects</h2>
+    
+    <div class="item">
+        <div class="item-header">
+            <div class="item-title">Project 1</div>
+            <div class="item-subtitle">xyz zyc</div>
+        </div>
+        <ul>
+            
+            <li>xxxxx</li>
+            
+            <li>yyyyy</li>
+            
+            <li>zzzzz</li>
+            
+        </ul>
+        
+        <div class="repo-link">
+            Repo: <a href="https://lola.com">https://lola.com</a>
+            
+        </div>
+        
+    </div>
+    
+
+    <!-- Professional Experience -->
+    <h2>Professional Experience</h2>
+    
+    <div class="item">
+        <div class="item-header">
+            <div class="item-title">Company Y, Developer X</div>
+            <div class="item-date">05-2021 - 05-2023</div>
+        </div>
+        <ul>
+            
+            <li>xxxxx</li>
+            
+            <li>yyyy</li>
+            
+            <li>zzzz</li>
+            
+        </ul>
+    </div>
+    
+
+    <!-- Languages -->
+    <h2>Languages</h2>
+    
+    <div class="language-item">English C1</div>
+    
+    <div class="language-item">Polish native</div>
+    
+
+    <!-- Education -->
+    <h2>Education</h2>
+    
+    <div class="education-item">
+        <strong>Bachelor</strong>, xxx<br>
+        Lola school<br>
+        06-2018 - 09-2020
+    </div>
+    
+
+    <!-- GDPR Notice -->
+    <div class="gdpr-notice">
+        I agree to the processing of personal data provided in this document for realising the recruitment process pursuant to the Personal Data Protection Act of 10 May 2018 (Journal of Laws 2018, item 1000) and in agreement with Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation).
+    </div>
+</body>
+</html>

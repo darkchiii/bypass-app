@@ -6,7 +6,7 @@ class Storage:
     def __init__(self):
         self.data_dir = Path("data")
         self.data_dir.mkdir(exist_ok=True)
-        self.cv_dir = Path("data/cv")
+        self.cv_dir = Path("data/cv_json")
         self.cv_dir.mkdir(exist_ok=True)
 
     def save_base_cv(self, user_id:str, cv: ParsedCV):
