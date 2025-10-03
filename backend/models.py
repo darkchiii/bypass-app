@@ -7,7 +7,6 @@ class Project(BaseModel):
     description: List[str]
     link: Optional[str] = None
 
-
 class Experience(BaseModel):
     title: str
     company: str
