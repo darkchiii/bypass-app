@@ -5,7 +5,8 @@ from cv_parser import extract_text_from_pdf
 import io
 from models import ParsedCV, Experience, Project, Education
 from storage import storage
-# import cv_parser
+from fastapi.responses import StreamingResponse
+from generate_pdf import GeneratePDF
 
 app = FastAPI()
 
@@ -16,6 +17,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+pdf_gen = GeneratePDF()
 
 @app.post("/api/upload-cv")
 async def upload_cv(file: Annotated[UploadFile, File()]):
@@ -40,7 +43,7 @@ async def upload_cv(file: Annotated[UploadFile, File()]):
 async def save_base_cv(cv_data: ParsedCV):
 
     try:
-        storage.save_base_cv("daria", cv_data)
+        storage.save_base_cv(cv_data.name, cv_data)
         return {
             "status": "success",
             "message": "Base CV saved successfully"
@@ -73,6 +76,31 @@ async def get_base_cv():
             detail=f"Failed to load CV: {str(e)}"
         )
 
+
+# Base CV preview generator endpoint
+@app.post("/api/generate-pdf")
+async def preview_pdf(user_id: str = "default"):
+    try:
+        cv = storage.get_base_cv(user_id)
+
+        if cv is None:
+            raise HTTPException(status_code=404, detail="Your base cv was not found.")
+
+        pdf_bytes, html_content = pdf_gen.generate_pdf(cv)
+
+        filename = pdf_gen.generate_pdf_name(cv.name, cv.job_title)
+        # pdf_gen.convert_html_to_pdf(cv, html_content)
+
+        return StreamingResponse(
+            io.BytesIO(pdf_bytes),
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f"attachment; filename={filename}"
+            }
+        )
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
 
 @app.get("/")
 def read_root():
