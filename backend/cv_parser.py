@@ -10,17 +10,3 @@ def extract_text_from_pdf(file_bytes: bytes) -> str:
             if text_page:
                 text += text_page + "\n\n"
     return {"text": text}
-
-
-# def parse_cv_sections(text: str):
-#     """Parsing CV into sections"""
-#     sections = {
-#         "raw_text": text,
-#         "name": "",
-#         "bio": "",
-#         "job_title": "",
-#         "professional experience": "",
-#         "skills": "",
-#     }
-
-#     return sections
