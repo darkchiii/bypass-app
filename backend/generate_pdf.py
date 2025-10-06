@@ -1,6 +1,6 @@
 from weasyprint import HTML
 from jinja2 import Environment, FileSystemLoader, PackageLoader, select_autoescape
-from main import ParsedCV, Project, Education, Experience
+from models import ParsedCV, Project, Education, Experience
 from pathlib import Path
 
 class GeneratePDF:
@@ -16,8 +16,10 @@ class GeneratePDF:
     def generate_pdf_name(self, name, jobtitle):
         clean_name = "".join(name.split())
         clean_job_title = "".join(jobtitle.split())
-        pdf_path = self.output_dir / f"pdf/CV_{clean_name}_{clean_job_title}.pdf"
-        return pdf_path
+        return f"CV_{clean_name}_{clean_job_title}.pdf"
+
+        # pdf_path = self.output_dir / f"pdf/CV_{clean_name}_{clean_job_title}.pdf"
+        # return pdf_path
 
     def render_template(self, cv_data: ParsedCV):
         #Potem dodać template jako argument do wyboru
@@ -44,8 +46,7 @@ class GeneratePDF:
         html_content = self.render_template(cv_data)
         pdf_bytes = HTML(string=html_content).write_pdf()
 
-        # return pdf_bytes
-        return pdf_bytes, html_content
+        return pdf_bytes
 
     def save_html(self, cv_data, html_context: str):
         html_path = self.output_dir / f"html/CV_{cv_data.name}.html"

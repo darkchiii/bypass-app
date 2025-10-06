@@ -55,9 +55,9 @@ async def save_base_cv(cv_data: ParsedCV):
         )
 
 @app.get("/api/get-base-cv")
-async def get_base_cv():
+async def get_base_cv(user_id: str):
     try:
-        cv = storage.get_base_cv("daria")
+        cv = storage.get_base_cv(user_id)
 
         if cv is None:
             raise HTTPException(
@@ -86,7 +86,7 @@ async def preview_pdf(user_id: str = "default"):
         if cv is None:
             raise HTTPException(status_code=404, detail="Your base cv was not found.")
 
-        pdf_bytes, html_content = pdf_gen.generate_pdf(cv)
+        pdf_bytes = pdf_gen.generate_pdf(cv)
 
         filename = pdf_gen.generate_pdf_name(cv.name, cv.job_title)
         # pdf_gen.convert_html_to_pdf(cv, html_content)

@@ -9,4 +9,4 @@ def extract_text_from_pdf(file_bytes: bytes) -> str:
             text_page = page.extract_text()
             if text_page:
                 text += text_page + "\n\n"
-    return {"text": text}
+    return text
