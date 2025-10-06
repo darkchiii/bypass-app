@@ -37,8 +37,7 @@ class ParsedCV(BaseModel):
     experience: List[Experience]
     education: List[Education]
 
-# Job Application Models:
-
+# Job Application Models
 class JobRequirements(BaseModel):
     job_title: str
     company: str
@@ -64,4 +63,5 @@ class JobApplication(BaseModel):
     job_requirements: JobRequirements
     suggestions: List[Suggestion]
     status: Literal["pending", "ready", "downloaded"]
+    analysis_model: Literal["quick", "full"] = "full"
     # created_at: datetime

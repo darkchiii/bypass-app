@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from models import Education, Experience, ParsedCV, Project
+from models import Education, Experience, ParsedCV, Project, JobApplication
 
 class Storage:
     def __init__(self):
@@ -8,6 +8,8 @@ class Storage:
         self.data_dir.mkdir(exist_ok=True)
         self.cv_dir = Path("data/cv_json")
         self.cv_dir.mkdir(exist_ok=True)
+        self.jobs_dir = Path("data/jobs")
+        self.jobs_dir.mkdir(exist_ok=True)
 
     def save_base_cv(self, user_id:str, cv: ParsedCV):
         filepath = self.cv_dir / f"{user_id}_base_cv.json"
@@ -23,8 +25,35 @@ class Storage:
             data = json.load(f)
         return ParsedCV(**data)
 
-storage = Storage()
+    def save_job_application(self, user_id, job_id, apllication):
+        user_dir = self.jobs_dir / str(user_id)
+        user_dir.mkdir(parents=True, exist_ok=True)
+        filepath = user_dir / f"{job_id}.json"
+        application_data = apllication.dict()
+        with open(filepath, "w", encoding='utf-8') as f:
+            json.dump(application_data, f, indent=2, ensure_ascii=False, default=str)
 
-# cv = storage.get_base_cv()
-# print(cv)
-# print(cv.name)
+    def get_job_application(self, user_id, job_id):
+        filepath = self.jobs_dir / str(user_id) / f"{job_id}.json"
+        if not filepath.exists():
+            return None
+        with open(filepath, "r", encoding='utf-8') as f:
+            data = json.load(f)
+        return JobApplication(**data)
+
+    def get_all_jobs(self, user_id):
+        filepath = self.jobs_dir / str(user_id)
+
+        if not filepath.exists:
+            return None
+
+        jobs = []
+        for job_file in filepath.glob("*json"):
+            try:
+                with open(job_file, "r", encoding="utf-8") as f:
+                    job_data = json.load(f)
+                    jobs.append(job_data)
+            except (json.JSONDecodeError, OSError) as e:
+                print(f"Error reading {job_file.name}: {e}")
+
+storage = Storage()
