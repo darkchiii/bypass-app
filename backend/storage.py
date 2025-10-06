@@ -45,7 +45,7 @@ class Storage:
         filepath = self.jobs_dir / str(user_id)
 
         if not filepath.exists:
-            return None
+            return []
 
         jobs = []
         for job_file in filepath.glob("*json"):
