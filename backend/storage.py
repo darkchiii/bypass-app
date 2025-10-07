@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
-from models import Education, Experience, ParsedCV, Project, JobApplication
+from models import Education, Experience, ParsedCV, Suggestion, JobApplication, Project
+from typing import List
 
 class Storage:
     def __init__(self):
@@ -68,5 +69,3 @@ class Storage:
                 continue
 
         return jobs
-
-storage = Storage()
