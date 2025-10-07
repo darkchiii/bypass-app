@@ -1,7 +1,8 @@
 from weasyprint import HTML
 from jinja2 import Environment, FileSystemLoader, PackageLoader, select_autoescape
-from models import ParsedCV, Project, Education, Experience
+from models import ParsedCV, Project, Education, Experience, Suggestion
 from pathlib import Path
+from typing import List
 
 class GeneratePDF:
     def __init__(self):
@@ -66,3 +67,56 @@ class GeneratePDF:
         HTML(string=html_context).write_pdf(pdf_path)
         print("PDF saved.")
         return pdf_path
+
+
+def apply_suggestions(base_cv: ParsedCV, suggestions: List[Suggestion]):
+    modified_cv = base_cv.model_copy(deep=True)
+    accepted_suggestions = [s for s in suggestions if s.status in ["modified", "accepted"]]
+
+    for s in accepted_suggestions:
+        new_value = s.final_value if s.final_value else s.suggested_value
+
+        # if s.target_item_index == None or s.target_item_index >= len(modified_cv.experience):
+        #     print(f"Warning: Invalid suggestion index {s.target_item_index} for experience")
+        #     continue
+
+        if s.section == "job_title":
+            modified_cv.job_title = new_value
+
+        elif s.section == "bio":
+            modified_cv.bio = new_value
+
+        elif s.section == "skills":
+            modified_cv.skills[s.target_item_index] = new_value
+
+        elif s.section == "experience":
+            if s.target_item_index == None or s.target_item_index >= len(modified_cv.experience):
+                print(f"Warning: Invalid suggestion index {s.target_item_index} for experience")
+                continue
+            if s.target_field == "title":
+                modified_cv.experience[s.target_item_index].title = new_value
+            elif s.target_field == "company":
+                modified_cv.experience[s.target_item_index].company = new_value
+            elif s.target_field == "date":
+                modified_cv.experience[s.target_item_index].date = new_value
+            elif s.target_field == "description":
+                modified_cv.experience[s.target_item_index].description[s.target_field_index] = new_value
+
+        elif s.section == "projects":
+            if s.target_item_index == None or s.target_item_index >= len(modified_cv.experience):
+                print(f"Warning: Invalid suggestion index {s.target_item_index} for experience")
+                continue
+            if modified_cv.projects is None or s.target_item_index >= len(modified_cv.projects):
+                continue
+            if s.target_field == "title":
+                modified_cv.projects[s.target_item_index].title = new_value
+            elif s.target_field == "tools":
+                modified_cv.projects[s.target_item_index].tools = new_value
+            elif s.target_field == "link":
+                modified_cv.projects[s.target_item_index].link = new_value
+            elif s.target_field == "description":
+                modified_cv.projects[s.target_item_index].description[s.target_field_index] = new_value
+        #languages
+        #education
+    return modified_cv
+

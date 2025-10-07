@@ -48,20 +48,25 @@ class JobRequirements(BaseModel):
     tone: str
 
 class Suggestion(BaseModel):
-    type: Literal["rewrite", "reorder", "update_field", "add_keyword", "emphasize"]
+    type: Literal["rewrite", "reorder", "update_field"]
     section: Literal["job_title", "bio", "skills", "experience", "projects", "education", "languages"]
-    target: Optional[str]  # Dokładna lokalizacja (np. "experience[0].description[1]")
+
+    # Dla zagniezdzonych zmian
+    target_item_index: Optional[int] = None
+    target_field: Optional[str] = None
+    target_field_index: Optional[int] = None
+
     current_value: str  # Co jest teraz
     suggested_value: str  # Co AI proponuje
     reason: str  # Dlaczego ta zmiana
-    status: Literal["pending", "accepted", "rejected", "modified"]
-    final_value: Optional[str]  # Co user ostatecznie wpisał (jeśli zmodyfikował)
+    status: Literal["pending", "accepted", "rejected", "modified"] = "pending"
+    final_value: Optional[str] = None  # Co user ostatecznie wpisał (jeśli zmodyfikował)
 
 class JobApplication(BaseModel):
     job_id: str
     user_id: str
     job_requirements: JobRequirements
     suggestions: List[Suggestion]
-    status: Literal["pending", "ready", "downloaded"]
+    status: Literal["pending", "ready", "modified", "downloaded"]
     analysis_model: Literal["quick", "full"] = "full"
     # created_at: datetime
