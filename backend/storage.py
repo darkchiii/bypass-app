@@ -42,18 +42,31 @@ class Storage:
         return JobApplication(**data)
 
     def get_all_jobs(self, user_id):
-        filepath = self.jobs_dir / str(user_id)
-
-        if not filepath.exists:
+        user_dir = self.jobs_dir / str(user_id)
+        if not user_dir.exists():
             return []
 
         jobs = []
-        for job_file in filepath.glob("*json"):
+        for job_file in user_dir.glob("*.json"):
             try:
                 with open(job_file, "r", encoding="utf-8") as f:
                     job_data = json.load(f)
-                    jobs.append(job_data)
+
+                # Check if JobApplication
+                if "job_id" not in job_data:
+                    print(f"Skipping invalid file: {job_file.name} (missing job_id)")
+                    continue
+
+                jobs.append(JobApplication(**job_data))
+
             except (json.JSONDecodeError, OSError) as e:
                 print(f"Error reading {job_file.name}: {e}")
+                continue
+
+            except Exception as e:
+                print(f"Invalid JobApplication format in {job_file.name}: {e}")
+                continue
+
+        return jobs
 
 storage = Storage()

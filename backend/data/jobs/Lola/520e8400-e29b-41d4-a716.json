@@ -1,0 +1,45 @@
+{
+  "job_id": "520e8400-e29b-41d4-a716",
+  "user_id": "Lola",
+  "job_requirements": {
+    "job_title": "Senior Java Developer",
+    "company": "XYZ Tech",
+    "key_skills": [
+      "Java",
+      "Spring Boot",
+      "Microservices",
+      "PostgreSQL"
+    ],
+    "important_keywords": [
+      "scalable",
+      "enterprise",
+      "agile",
+      "CI/CD"
+    ],
+    "responsibilities": [
+      "Design and develop microservices architecture",
+      "Collaborate with cross-functional teams",
+      "Maintain high code quality standards"
+    ],
+    "company_values": [
+      "innovation",
+      "continuous learning",
+      "teamwork"
+    ],
+    "tone": "technical"
+  },
+  "suggestions": [
+    {
+      "type": "add_keyword",
+      "section": "bio",
+      "target": null,
+      "current_value": "Backend developer with experience in Python",
+      "suggested_value": "Backend developer specializing in Java and scalable enterprise applications",
+      "reason": "Emphasize Java expertise mentioned in job requirements",
+      "status": "pending",
+      "final_value": null
+    }
+  ],
+  "status": "pending",
+  "analysis_model": "full"
+}
