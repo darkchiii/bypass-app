@@ -1,0 +1,64 @@
+{
+  "job_id": "550e8400-test-happy-path",
+  "user_id": "Alice",
+  "job_requirements": {
+    "job_title": "Senior React Developer",
+    "company": "InnovateTech",
+    "key_skills": [
+      "React",
+      "TypeScript",
+      "GraphQL"
+    ],
+    "important_keywords": [
+      "scalable",
+      "performance"
+    ],
+    "responsibilities": [
+      "Lead frontend development"
+    ],
+    "company_values": [
+      "innovation"
+    ],
+    "tone": "technical"
+  },
+  "suggestions": [
+    {
+      "type": "update_field",
+      "section": "job_title",
+      "target_item_index": null,
+      "target_field": null,
+      "target_field_index": null,
+      "current_value": "Full Stack Developer",
+      "suggested_value": "Senior React Developer",
+      "reason": "Match job posting title",
+      "status": "accepted",
+      "final_value": null
+    },
+    {
+      "type": "rewrite",
+      "section": "bio",
+      "target_item_index": null,
+      "target_field": null,
+      "target_field_index": null,
+      "current_value": "Experienced software developer with 5 years of experience.",
+      "suggested_value": "Senior React developer with 5+ years building scalable applications.",
+      "reason": "Emphasize React and scalability",
+      "status": "accepted",
+      "final_value": null
+    },
+    {
+      "type": "rewrite",
+      "section": "experience",
+      "target_item_index": 0,
+      "target_field": "description",
+      "target_field_index": 0,
+      "current_value": "Developed web applications using React and Node.js",
+      "suggested_value": "Architected scalable web applications using React",
+      "reason": "Add scalability keyword",
+      "status": "modified",
+      "final_value": "Architected and deployed scalable React applications"
+    }
+  ],
+  "status": "downloaded",
+  "analysis_model": "full"
+}
