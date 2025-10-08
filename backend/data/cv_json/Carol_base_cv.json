@@ -1,0 +1,79 @@
+{
+  "name": "Carol Chen",
+  "email": "carol.chen@gmail.com",
+  "location": "San Francisco, CA",
+  "phone": "+1 555-4567",
+  "job_title": "Data Scientist",
+  "bio": "Data scientist with expertise in machine learning and statistical analysis. Experienced in building predictive models.",
+  "skills": [
+    "Python",
+    "TensorFlow",
+    "Pandas",
+    "SQL",
+    "Scikit-learn",
+    "Jupyter"
+  ],
+  "languages": [
+    "English - Native",
+    "Mandarin - Native"
+  ],
+  "projects": [
+    {
+      "title": "Customer Churn Prediction",
+      "tools": "Python, TensorFlow, Pandas",
+      "description": [
+        "Built ML model to predict customer churn",
+        "Achieved 85% accuracy",
+        "Deployed model to production"
+      ],
+      "link": null
+    },
+    {
+      "title": "Sales Forecasting System",
+      "tools": "Python, Scikit-learn, SQL",
+      "description": [
+        "Created time-series forecasting model",
+        "Integrated with business intelligence tools",
+        "Improved forecast accuracy by 30%"
+      ],
+      "link": "https://github.com/carol/sales-forecast"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Data Scientist",
+      "company": "Analytics Hub",
+      "date": "2021 - Present",
+      "description": [
+        "Developed machine learning models for business insights",
+        "Conducted statistical analysis on large datasets",
+        "Collaborated with stakeholders to define requirements",
+        "Presented findings to executive team"
+      ]
+    },
+    {
+      "title": "Data Analyst",
+      "company": "Marketing Solutions",
+      "date": "2019 - 2021",
+      "description": [
+        "Analyzed customer behavior data",
+        "Created dashboards and reports",
+        "Performed A/B testing"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Science",
+      "field": "Data Science",
+      "school_name": "University of California",
+      "date": "2017 - 2019"
+    },
+    {
+      "degree": "Bachelor of Science",
+      "field": "Mathematics",
+      "school_name": "State College",
+      "date": "2013 - 2017"
+    }
+  ]
+}

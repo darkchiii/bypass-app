@@ -1,0 +1,72 @@
+{
+  "job_id": "abc-def-123-456",
+  "user_id": "Bob",
+  "job_requirements": {
+    "job_title": "Senior Python Developer",
+    "company": "DataFlow Systems",
+    "key_skills": [
+      "Python",
+      "FastAPI",
+      "Microservices",
+      "Kubernetes",
+      "PostgreSQL"
+    ],
+    "important_keywords": [
+      "high-performance",
+      "distributed systems",
+      "scalability",
+      "cloud-native"
+    ],
+    "responsibilities": [
+      "Design microservices architecture",
+      "Optimize system performance",
+      "Lead technical initiatives"
+    ],
+    "company_values": [
+      "technical excellence",
+      "innovation",
+      "teamwork"
+    ],
+    "tone": "technical"
+  },
+  "suggestions": [
+    {
+      "type": "update_field",
+      "section": "job_title",
+      "target_item_index": null,
+      "target_field": null,
+      "target_field_index": null,
+      "current_value": "Backend Engineer",
+      "suggested_value": "Senior Python Developer",
+      "reason": "Exact match with job posting title",
+      "status": "accepted",
+      "final_value": null
+    },
+    {
+      "type": "rewrite",
+      "section": "bio",
+      "target_item_index": null,
+      "target_field": null,
+      "target_field_index": null,
+      "current_value": "Backend engineer with strong focus on API design and database optimization. Experience with microservices architecture.",
+      "suggested_value": "Senior Python developer specializing in high-performance microservices and distributed systems. Expert in building scalable cloud-native applications.",
+      "reason": "Incorporate job keywords: high-performance, microservices, scalable, cloud-native",
+      "status": "accepted",
+      "final_value": null
+    },
+    {
+      "type": "rewrite",
+      "section": "experience",
+      "target_item_index": 0,
+      "target_field": "description",
+      "target_field_index": 0,
+      "current_value": "Built RESTful APIs using Django REST Framework",
+      "suggested_value": "Designed and built high-performance RESTful microservices using Python and FastAPI",
+      "reason": "Emphasize FastAPI and microservices from job requirements",
+      "status": "modified",
+      "final_value": "Architected and built high-performance RESTful microservices using Python, FastAPI, and distributed systems patterns"
+    }
+  ],
+  "status": "ready",
+  "analysis_model": "full"
+}

@@ -1,0 +1,84 @@
+{
+  "job_id": "xyz-789-ghi-012",
+  "user_id": "Carol",
+  "job_requirements": {
+    "job_title": "Senior ML Engineer",
+    "company": "AI Innovations Lab",
+    "key_skills": [
+      "Python",
+      "TensorFlow",
+      "PyTorch",
+      "MLOps",
+      "Kubernetes"
+    ],
+    "important_keywords": [
+      "deep learning",
+      "production ML",
+      "scalable",
+      "real-time inference"
+    ],
+    "responsibilities": [
+      "Design ML infrastructure",
+      "Deploy models to production",
+      "Optimize model performance"
+    ],
+    "company_values": [
+      "innovation",
+      "research-driven",
+      "collaboration"
+    ],
+    "tone": "technical"
+  },
+  "suggestions": [
+    {
+      "type": "update_field",
+      "section": "job_title",
+      "target_item_index": null,
+      "target_field": null,
+      "target_field_index": null,
+      "current_value": "Data Scientist",
+      "suggested_value": "Senior ML Engineer",
+      "reason": "Match job title exactly",
+      "status": "pending",
+      "final_value": null
+    },
+    {
+      "type": "rewrite",
+      "section": "bio",
+      "target_item_index": null,
+      "target_field": null,
+      "target_field_index": null,
+      "current_value": "Data scientist with expertise in machine learning and statistical analysis. Experienced in building predictive models.",
+      "suggested_value": "Senior ML Engineer specializing in production ML systems and deep learning. Expert in building scalable, real-time inference pipelines.",
+      "reason": "Emphasize production ML, deep learning, scalability keywords",
+      "status": "pending",
+      "final_value": null
+    },
+    {
+      "type": "rewrite",
+      "section": "experience",
+      "target_item_index": 0,
+      "target_field": "description",
+      "target_field_index": 0,
+      "current_value": "Developed machine learning models for business insights",
+      "suggested_value": "Designed and deployed production-grade machine learning systems with real-time inference capabilities",
+      "reason": "Add production ML and real-time keywords",
+      "status": "pending",
+      "final_value": null
+    },
+    {
+      "type": "rewrite",
+      "section": "projects",
+      "target_item_index": 0,
+      "target_field": "description",
+      "target_field_index": 2,
+      "current_value": "Deployed model to production",
+      "suggested_value": "Deployed scalable ML model to production using MLOps best practices and containerization",
+      "reason": "Add MLOps and scalability keywords",
+      "status": "pending",
+      "final_value": null
+    }
+  ],
+  "status": "pending",
+  "analysis_model": "full"
+}

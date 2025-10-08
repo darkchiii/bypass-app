@@ -30,9 +30,11 @@
   },
   "suggestions": [
     {
-      "type": "add_keyword",
+      "type": "rewrite",
       "section": "bio",
-      "target": null,
+      "target_item_index": null,
+      "target_field": null,
+      "target_field_index": null,
       "current_value": "Backend developer with experience in Python",
       "suggested_value": "Backend developer specializing in Java and scalable enterprise applications",
       "reason": "Emphasize Java expertise mentioned in job requirements",
@@ -40,6 +42,6 @@
       "final_value": null
     }
   ],
-  "status": "pending",
+  "status": "downloaded",
   "analysis_model": "full"
 }

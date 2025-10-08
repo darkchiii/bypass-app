@@ -69,3 +69,5 @@ class Storage:
                 continue
 
         return jobs
+
+storage = Storage()
