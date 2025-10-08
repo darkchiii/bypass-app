@@ -1,0 +1,73 @@
+{
+  "name": "Alice Johnson",
+  "email": "alice.johnson@email.com",
+  "location": "New York, NY",
+  "phone": "+1 555-0123",
+  "job_title": "Full Stack Developer",
+  "bio": "Experienced software developer with 5 years of experience in web development. Passionate about creating efficient and scalable applications.",
+  "skills": [
+    "JavaScript",
+    "React",
+    "Node.js",
+    "Python",
+    "PostgreSQL",
+    "Docker"
+  ],
+  "languages": [
+    "English - Native",
+    "Spanish - B2"
+  ],
+  "projects": [
+    {
+      "title": "E-commerce Platform",
+      "tools": "React, Node.js, MongoDB",
+      "description": [
+        "Built complete e-commerce solution",
+        "Implemented payment processing",
+        "Created admin dashboard"
+      ],
+      "link": "https://github.com/alice/ecommerce"
+    },
+    {
+      "title": "Task Management App",
+      "tools": "Vue.js, Express, MySQL",
+      "description": [
+        "Developed real-time collaboration features",
+        "Integrated email notifications",
+        "Optimized database queries"
+      ],
+      "link": "https://github.com/alice/taskapp"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Full Stack Developer",
+      "company": "Tech Solutions Inc",
+      "date": "2021 - Present",
+      "description": [
+        "Developed web applications using React and Node.js",
+        "Collaborated with design team on UI/UX improvements",
+        "Implemented automated testing with Jest",
+        "Reduced page load time by 40%"
+      ]
+    },
+    {
+      "title": "Junior Developer",
+      "company": "StartupXYZ",
+      "date": "2019 - 2021",
+      "description": [
+        "Built RESTful APIs",
+        "Worked with MongoDB and Express",
+        "Participated in code reviews"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Science",
+      "field": "Computer Science",
+      "school_name": "State University",
+      "date": "2015 - 2019"
+    }
+  ]
+}
