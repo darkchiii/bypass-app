@@ -3,11 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import Annotated
 from cv_parser import extract_text_from_pdf
 import io
-from models import ParsedCV, JobRequirements, JobApplication
+from models import ParsedCV, JobRequirements, JobApplication, Suggestion
 from storage import storage
 from fastapi.responses import StreamingResponse
-from generate_pdf import GeneratePDF
-import uuid
+from generate_pdf import GeneratePDF, apply_suggestions
+from typing import List
 
 app = FastAPI()
 
@@ -122,40 +122,6 @@ async def create_job(job_application: JobApplication = Body(...)):
     except Exception as e:
         raise HTTPException(500, f"Failed to save: {str(e)}")
 
-# @app.post("/api/jobs/{job_id}/save-requirements") # Czy potrzebny user id?, user z requesta czy wystarczy job id?
-# async def save_requirements(
-#     job_id: str = Path(...), # from url
-#     user_id: str = Query(...), # from query
-#     requirements: JobRequirements = Body(...)): # from request body
-#     try:
-#         storage.save_job_application(user_id, job_id, requirements)
-#         return {
-#             "status": "success",
-#             "message": "Job requirements saved successfully"
-#         }
-#     except Exception as e:
-#         raise HTTPException(
-#             status_code=500,
-#             detail=f"Failed to save job requirements: {e}"
-#         )
-
-# @app.post("/api/jobs/{job_id}/save-suggestions")
-# async def save_suggestions(
-#     job_id: str = Path(...),
-#     user_id: str = Query(...),
-#     suggestions: Suggestion = Body(...)):
-#     try:
-#         storage.save_job_application(user_id, job_id, suggestions)
-#         return {
-#             "status": "success",
-#             "message": "Job requirements saved successfully"
-#         }
-#     except Exception as e:
-#         raise HTTPException(
-#             status_code=500,
-#             detail=f"Failed to save suggestions: {e}"
-#         )
-
 @app.get('/api/jobs/{job_id}')
 async def view_job(
         user_id: str = Query(...),
@@ -207,6 +173,65 @@ async def view_jobs(
             status_code=500,
             detail=f"Failed to load jobs data: {str(e)}"
         )
+
+# Update JobApplication
+@app.post("/api/jobs/{job_id}/apply_changes")
+async def apply_changes(
+    job_id: str = Path(...),
+    user_id: str = Query(...), #
+    changes: List[dict] = Body(...)):
+
+    job_application = storage.get_job_application(user_id, job_id)
+
+    if not job_application:
+        raise HTTPException(404, "Job not found")
+
+    for change in changes:
+        idx = change["index"]
+        job_application.suggestions[idx].status = change["status"]
+
+        if "final_value" in change:
+            job_application.suggestions[idx].final_value = change["final_value"]
+
+    job_application.status = "modified"
+
+    storage.save_job_application(user_id, job_id, job_application)
+
+    return {"status": "succes", "message": "Changes applied"}
+
+@app.get("/api/jobs/{job_id}/download")
+async def generate_and_download(
+    user_id: str = Query(...),
+    job_id: str = Path(...),
+):
+    try:
+        job_application = storage.get_job_application(user_id, job_id)
+        base_cv = storage.get_base_cv(user_id)
+
+        if not job_application or not base_cv:
+            raise HTTPException(404, "Data not found")
+
+        modified_cv = apply_suggestions(base_cv, job_application.suggestions)
+
+        filename = pdf_gen.generate_pdf_name(base_cv.name, job_application.job_requirements.job_title)
+
+        pdf_bytes = pdf_gen.generate_pdf(modified_cv)
+
+        job_application.status = "downloaded"
+        storage.save_job_application(user_id, job_id, job_application)
+
+        return StreamingResponse(
+            io.BytesIO(pdf_bytes),
+            media_type="application/pdf",
+            headers={"Content-Disposition": f"attachment; filename={filename}"}
+        )
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to load jobs data: {str(e)}"
+        )
+
 
 @app.get("/")
 def read_root():
