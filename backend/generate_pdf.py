@@ -76,10 +76,6 @@ def apply_suggestions(base_cv: ParsedCV, suggestions: List[Suggestion]):
     for s in accepted_suggestions:
         new_value = s.final_value if s.final_value else s.suggested_value
 
-        # if s.target_item_index == None or s.target_item_index >= len(modified_cv.experience):
-        #     print(f"Warning: Invalid suggestion index {s.target_item_index} for experience")
-        #     continue
-
         if s.section == "job_title":
             modified_cv.job_title = new_value
 
@@ -87,10 +83,16 @@ def apply_suggestions(base_cv: ParsedCV, suggestions: List[Suggestion]):
             modified_cv.bio = new_value
 
         elif s.section == "skills":
-            modified_cv.skills[s.target_item_index] = new_value
+            if s.target_item_index is not None:
+                if s.target_item_index < len(modified_cv.skills):
+                    modified_cv.skills[s.target_item_index] = new_value
+                else:
+                    print(f"Warning: Invalid skill index {s.target_item_index}")
+            else:
+                print(f"Warning: Skills reorder not implemented yet")
 
         elif s.section == "experience":
-            if s.target_item_index == None or s.target_item_index >= len(modified_cv.experience):
+            if s.target_item_index is None or s.target_item_index >= len(modified_cv.experience):
                 print(f"Warning: Invalid suggestion index {s.target_item_index} for experience")
                 continue
             if s.target_field == "title":
@@ -101,9 +103,23 @@ def apply_suggestions(base_cv: ParsedCV, suggestions: List[Suggestion]):
                 modified_cv.experience[s.target_item_index].date = new_value
             elif s.target_field == "description":
                 modified_cv.experience[s.target_item_index].description[s.target_field_index] = new_value
+                if s.target_field_index is None:
+                    print(f"Warning: Missing description index for experience")
+                    continue
+
+                desc_list = modified_cv.experience[s.target_item_index].description
+                if s.target_field_index >= len(desc_list):
+                    print(f"Warning: Description index {s.target_field_index} out of range")
+                    continue
+
+                modified_cv.experience[s.target_item_index].description[s.target_field_index] = new_value
 
         elif s.section == "projects":
-            if s.target_item_index == None or s.target_item_index >= len(modified_cv.experience):
+            if modified_cv.projects is None:
+                print(f"Warning: User has no projects")
+                continue
+
+            if s.target_item_index is None or s.target_item_index >= len(modified_cv.experience):
                 print(f"Warning: Invalid suggestion index {s.target_item_index} for experience")
                 continue
             if modified_cv.projects is None or s.target_item_index >= len(modified_cv.projects):
@@ -116,7 +132,39 @@ def apply_suggestions(base_cv: ParsedCV, suggestions: List[Suggestion]):
                 modified_cv.projects[s.target_item_index].link = new_value
             elif s.target_field == "description":
                 modified_cv.projects[s.target_item_index].description[s.target_field_index] = new_value
-        #languages
-        #education
+                if s.target_field_index is None:
+                    print(f"Warning: Missing description index for project")
+                    continue
+
+                desc_list = modified_cv.projects[s.target_item_index].description
+                if s.target_field_index >= len(desc_list):
+                    print(f"Warning: Project description index {s.target_field_index} out of range")
+                    continue
+
+                modified_cv.projects[s.target_item_index].description[s.target_field_index] = new_value
+
+        elif s.section == "languages":
+            if s.target_item_index is not None:
+                if s.target_item_index < len(modified_cv.languages):
+                    modified_cv.languages[s.target_item_index] = new_value
+                else:
+                    print(f"Warning: Invalid language index {s.target_item_index}")
+            else:
+                print(f"Warning: Languages reorder not implemented yet")
+
+        elif s.section == "education":
+            if s.target_item_index is None or s.target_item_index >= len(modified_cv.education):
+                print(f"Warning: Invalid education index {s.target_item_index}")
+                continue
+
+            if s.target_field == "degree":
+                modified_cv.education[s.target_item_index].degree = new_value
+            elif s.target_field == "field":
+                modified_cv.education[s.target_item_index].field = new_value
+            elif s.target_field == "school_name":
+                modified_cv.education[s.target_item_index].school_name = new_value
+            elif s.target_field == "date":
+                modified_cv.education[s.target_item_index].date = new_value
+
     return modified_cv
 
