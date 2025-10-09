@@ -12,9 +12,7 @@ def test_happy_path_full_flow():
     print("HAPPY PATH TEST - Full Flow")
     print("="*60)
 
-    # ==========================================
     # STEP 1: Upload CV (PDF → text)
-    # ==========================================
     print("\n[1/7] Uploading CV PDF...")
 
     with open("data/base_cv_pdf/AliceJohnson_cv.pdf", "rb") as f:
@@ -26,9 +24,7 @@ def test_happy_path_full_flow():
     print("CV uploaded and text extracted")
 
 
-    # ==========================================
     # STEP 2: Save base CV (parsed data)
-    # ==========================================
     print("\n[2/7] Saving base CV...")
 
     alice_cv = {
@@ -75,24 +71,20 @@ def test_happy_path_full_flow():
     print("Base CV saved")
 
 
-    # ==========================================
-    # STEP 3: Get base CV (verify save)
-    # ==========================================
+    # STEP 3: Get base CV
     print("\n[3/7] Retrieving saved CV...")
 
-    user_id = "AliceJohnson"  # Clean name
+    user_id = "alice_johnson"  # Clean name
     response = requests.get(f"{BASE_URL}/api/get-base-cv?user_id={user_id}")
-
+    print(f"retireveing cv alice: {response.json()} ")
     assert response.status_code == 200, f"Get CV failed: {response.status_code}"
     retrieved_cv = response.json()
-    assert retrieved_cv["name"] == "Alice Johnson"
-    assert retrieved_cv["email"] == "alice.johnson@email.com"
+    assert retrieved_cv["data"]["name"] == "Alice Johnson"
+    assert retrieved_cv["data"]["email"] == "alice.johnson@email.com"
     print("CV retrieved successfully")
 
 
-    # ==========================================
     # STEP 4: Generate base CV PDF (preview)
-    # ==========================================
     print("\n[4/7] Generating base CV PDF preview...")
 
     response = requests.post(f"{BASE_URL}/api/generate-pdf?user_id={user_id}")
@@ -102,9 +94,7 @@ def test_happy_path_full_flow():
     print(f"Base PDF generated: {len(response.content)} bytes")
 
 
-    # ==========================================
     # STEP 5: Create job application
-    # ==========================================
     print("\n[5/7] Creating job application...")
 
     job_application = {
@@ -159,9 +149,7 @@ def test_happy_path_full_flow():
     print(f"Job created: {job_id}")
 
 
-    # ==========================================
     # STEP 6: Apply changes (accept suggestions)
-    # ==========================================
     print("\n[6/7] Applying changes to suggestions...")
 
     changes = [
@@ -180,9 +168,7 @@ def test_happy_path_full_flow():
     print("Changes applied (2 accepted, 1 modified)")
 
 
-    # ==========================================
     # STEP 7: Download customized CV PDF
-    # ==========================================
     print("\n[7/7] Downloading customized CV PDF...")
 
     response = requests.get(f"{BASE_URL}/api/jobs/{job_id}/download?user_id=Alice")
@@ -199,9 +185,7 @@ def test_happy_path_full_flow():
     print(f"Saved to: {output_path}")
 
 
-    # ==========================================
     # STEP 8: Verify job status changed
-    # ==========================================
     print("\n[BONUS] Verifying job status...")
 
     response = requests.get(f"{BASE_URL}/api/jobs/{job_id}?user_id=Alice")
@@ -211,9 +195,7 @@ def test_happy_path_full_flow():
     print("Job status updated to 'downloaded'")
 
 
-    # ==========================================
     # SUCCESS!
-    # ==========================================
     print("\n" + "="*60)
     print("HAPPY PATH TEST PASSED - All 7 steps successful!")
     print("="*60 + "\n")

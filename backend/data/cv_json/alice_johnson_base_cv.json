@@ -1,0 +1,48 @@
+{
+  "name": "Alice Johnson",
+  "email": "alice.johnson@email.com",
+  "location": "New York, NY",
+  "phone": "+1 555-0123",
+  "job_title": "Full Stack Developer",
+  "bio": "Experienced software developer with 5 years of experience.",
+  "skills": [
+    "JavaScript",
+    "React",
+    "Node.js",
+    "Python"
+  ],
+  "languages": [
+    "English - Native",
+    "Spanish - B2"
+  ],
+  "projects": [
+    {
+      "title": "E-commerce Platform",
+      "tools": "React, Node.js, MongoDB",
+      "description": [
+        "Built complete e-commerce solution",
+        "Implemented payment processing"
+      ],
+      "link": "https://github.com/alice/ecommerce"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Full Stack Developer",
+      "company": "Tech Solutions Inc",
+      "date": "2021 - Present",
+      "description": [
+        "Developed web applications using React and Node.js",
+        "Collaborated with design team on UI/UX improvements"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Science",
+      "field": "Computer Science",
+      "school_name": "State University",
+      "date": "2015 - 2019"
+    }
+  ]
+}

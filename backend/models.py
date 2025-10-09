@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional, List, Literal
 from datetime import datetime
 
@@ -23,7 +23,7 @@ class Education(BaseModel):
 
 class ParsedCV(BaseModel):
     name: str
-    email: str
+    email: EmailStr
     location: str
     phone: str
 
@@ -36,6 +36,20 @@ class ParsedCV(BaseModel):
     projects: Optional[List[Project]] = None
     experience: List[Experience]
     education: List[Education]
+
+@field_validator('phone')
+def validate_phone(cls, v):
+    """Sprawdź czy phone ma cyfry"""
+    if not any(char.isdigit() for char in v):
+        raise ValueError('Phone must contain at least one digit')
+    return v
+
+@field_validator('name')
+def validate_name(cls, v):
+    """Sprawdź czy name nie jest pusty po strip"""
+    if not v.strip():
+        raise ValueError('Name cannot be empty')
+    return v.strip()
 
 # Job Application Models
 class JobRequirements(BaseModel):
